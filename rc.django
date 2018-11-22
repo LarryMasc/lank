@@ -1,0 +1,94 @@
+#!/bin/bash
+
+LOG="/u/logs/django_server_lank.log"
+
+DJANGO_HOME="/u/gitwork/lank"
+DJANGO_APP="${DJANGO_HOME}/django"
+
+action=$1
+
+# 
+check_venv () {
+  # If the VIRTUAL_ENV variable is not defined
+  # then there is no VENV.
+  if [[ -z "${VIRTUAL_ENV}" ]]
+  then
+    cd ${DJANGO_HOME}
+    if [[ -d venv ]]
+    then
+        echo "No Virtual ENV running. Activating.."
+        source venv/bin/activate
+        cd
+    else
+        echo "No Virtual Environment available...exiting.."
+        exit 1
+    fi
+  fi
+}
+
+django_state() {
+      DJANGO_PID=`lsof -i :8008 | egrep TCP | awk '{print $2}'`
+      if [[ "${DJANGO_PID}" != "" ]]
+      then
+         echo "Django is running on PID --> ${DJANGO_PID}"
+      else
+         echo "Django Server is not running"
+      fi
+    }
+
+django_start() {
+      check_venv
+      echo "Starting Django Server on `date`" | tee -a ${LOG}
+      #nohup ./manage.py runserver 172.31.251.63:8008 >> ${LOG} 2>&1 &
+
+      # Will start the server in the django/bookstore directory
+      cd ${DJANGO_APP}
+      if [[ -f manage.py ]]
+      then
+         # nohup ./manage.py runserver 172.31.251.63:8008 >> ${LOG} 2>&1 &
+         nohup python ./manage.py runserver 0.0.0.0:8008 >> ${LOG} 2>&1 &
+         sleep 5
+         django_state
+       else
+         echo "Not a valid DJANGO directory --> `pwd` <--. Exiting"
+         exit 1
+       fi
+}
+
+django_stop() {
+      echo "Stopping django `date`" | tee -a ${LOG}
+      DJANGO_PID=`lsof -i :8008 | egrep TCP | awk '{print $2}'`
+      if [[ "${DJANGO_PID}" != "" ]]
+      then
+         kill -15 ${DJANGO_PID}
+         sleep 2
+      fi
+      django_state
+}
+
+# Main
+
+case ${action} in
+
+start) 
+      django_start
+      ;;
+
+stop)
+      django_stop
+      ;;
+
+status)
+      django_state
+      ;;
+
+restart)
+      django_stop
+      django_start
+      ;;
+
+*)
+      echo "Usage : ./rc.django [start|stop|status]"
+      exit 1
+      ;;
+esac
