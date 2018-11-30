@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L.A.N.K. Enterprises</title>
+</head>
+<body>
+-->
+
+{% block content %}
+<!-- <form action="send_msg_form" method="POST"> -->
+<form action="." method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Send E-Mail">
+</form>
+{% endblock %}}
+
+<!--
+</body>
+</html>
+-->

@@ -46,7 +46,7 @@ django_start() {
       if [[ -f manage.py ]]
       then
          # nohup ./manage.py runserver 172.31.251.63:8008 >> ${LOG} 2>&1 &
-         nohup python ./manage.py runserver 0.0.0.0:8008 >> ${LOG} 2>&1 &
+         nohup python ./manage.py runserver 0.0.0.0:8008 1>>${LOG} 2>&1 &
          sleep 5
          django_state
        else
