@@ -5,19 +5,42 @@
     <title>{% block title %}L.A.N.K. Enterprises{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="/static/core/css/w3.css" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 5px;
+            color: blue;
+        }
+        td, caption {
+            text-align: left;
+        }
+        h1, h2, h3, h4{
+            color: darkblue;
+        }
+        p, b {
+            color: blue;
+        }
+        input[type=button], input[type=submit], input[type=reset] {
+            color: darkblue;
+            border-radius: 12px;
+        }
+    </style>
 </head>
 <body style="background-color: aliceblue";>
     <div class="w3-container w3-teal w3-center">
         <h1>L.A.N.K. ENTERPRISES</h1>
     </div>
     <div class="w3-sidebar w3-bar-block" style="background-color: aliceblue; width: 10%">
-    <h3 class="w3-bar-item">
-        Content
+    <h3 class="w3-bar">
+        Contents
     </h3>
-        <a href="#" class="w3-bar-item w3-button">Home</a>
-        <a href="#" class="w3-bar-item w3-button">Picture Gallery</a>
-        <a href="#" class="w3-bar-item w3-button">About us</a>
-        <a href="#" class="w3-bar-item w3-button">Contact Us</a>
+        <a href="/" class="w3-bar-item w3-button w3-hover-blue">Home</a>
+        <a href="/" class="w3-bar-item w3-button w3-hover-blue">Picture Gallery</a>
+        <a href="/core/sign_up" class="w3-bar-item w3-button w3-hover-blue">Sign Up</a>
+        <a href="/" class="w3-bar-item w3-button w3-hover-blue">About us</a>
+        <a href="/core/send_email_msg" class="w3-bar-item w3-button w3-hover-blue">Contact Us</a>
     </div>
 
     <div class="w3-container w3-left-align" style="margin-left: 10%">

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table>
+    <caption><h2>E-Mail Data</h2></caption>
+    <tr>
+        <th>ID</th>
+        <th>Sender</th>
+        <th>Recipient</th>
+        <th>Subject</th>
+        <th>Send Time</th>
+        <th>CC Myself?</th>
+    </tr>
+{% for instance in object_list %}
+    <tr>
+        <td>{{ instance.id }}</td>
+        <td>{{ instance.sender }}</td>
+        <td>{{ instance.recipient }}</td>
+        <td>{{ instance.subject }}</td>
+        <td>{{ instance.send_time }}</td>
+        <td>{{ instance.cc_myself }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
