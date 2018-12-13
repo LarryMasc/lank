@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [[ `pwd` = "/u/gitwork/lank" ]]
+then
+    echo "LANK not ready for Apache yet"
+    exit 1
+fi
+
+ID=`id -u`
+if [[ ${ID} -ne 0 ]]
+then
+    echo "Please submit as root."
+    exit 1
+fi
+
+action=$1
+APACHE_HOME="/usr/local/apache2"
+cd $APACHE_HOME/bin
+
+status(){
+    APACHE_STATUS=`ps -aef|egrep /usr/local/apache2/bin/httpd | egrep -cv grep`
+    if [[ ${APACHE_STATUS} -gt 0 ]]
+    then
+        echo "Apache Server is running"
+    else
+        echo "Apache Server is down"
+    fi
+}
+
+case ${action} in 
+    start)
+        ./apachectl start
+        status
+            ;;
+
+    stop)
+        ./apachectl stop
+        sleep 2
+        status
+           ;; 
+
+    restart)
+        ./apachectl restart
+        status
+            ;;
+
+    status)
+        status
+            ;;
+
+    *)
+        echo "Invalid option. Exiting.."
+        exit 1
+esac
