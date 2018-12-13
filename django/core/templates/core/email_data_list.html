@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+r"""
+In a list view, the assumption is the data is in an 'object_list'
+"""
+<table>
+    <caption><h3>E-Mail Data</h3></caption>
+    <tr>
+        <th>ID</th>
+        <th>Sender</th>
+        <th>Recipient</th>
+        <th>Subject</th>
+        <th>Send Time</th>
+        <th>CC Myself?</th>
+    </tr>
+{% for instance in object_list %}
+    <tr>
+        <td>{{ instance.id }}</td>
+        <td>{{ instance.sender }}</td>
+        <td>{{ instance.recipient }}</td>
+        <td>{{ instance.subject }}</td>
+        <td>{{ instance.send_time }}</td>
+        <td>{{ instance.cc_myself }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
