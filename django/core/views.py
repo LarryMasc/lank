@@ -63,6 +63,7 @@ class send_email_msg(FormView):
 
 # List all the sent e-mails
 class show_all_email(ListView):
+    paginate_by = 3
     queryset = email_data.objects.all()
     # template_name = "core/email_data_list.html"
     # def get(self, request):
