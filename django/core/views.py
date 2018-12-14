@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from django.views.generic import TemplateView, FormView, ListView, View
+from django.views.generic import (
+    DeleteView, DetailView, FormView, ListView, TemplateView, View
+    )
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -63,15 +65,51 @@ class send_email_msg(FormView):
 
 # List all the sent e-mails
 class show_all_email(ListView):
-    paginate_by = 3
+    r"""ListView using ClassView
+
+    In a listview, the defaults are as followw
+    template_name = <app>/<model>_<view>.html
+
+    eg below shows how the class would be defined if the defaults are not
+    used.
+
+    class show_all_email(ListView)
+    template_name = "core/email_data_list.html"
+    def get(self, request):
+        queryset = email_data.objects.all()
+        context = {
+            'object_list': queryset
+        }
+        return render(request, self.template_name, context)
+    """
     queryset = email_data.objects.all()
-    # template_name = "core/email_data_list.html"
-    # def get(self, request):
-    #     queryset = email_data.objects.all()
-    #     context = {
-    #         'object_list': queryset
-    #     }
-    #     return render(request, self.template_name, context)
+
+
+# Show details of a row
+class email_detail(DetailView):
+    r"""Display details of a row using Classviews
+
+    In a detailview, the defaults are as followw
+    template_name = <app>/<model>_<view>.html
+
+    eg below shows how the class would be defined if the defaults are not
+    used.
+
+    class email_detail(DetailView)
+    template_name = "core/email_data_detail.html"
+    def get(self, request):
+        queryset = email_data.objects.all()
+        context = {
+            'object_list': queryset
+        }
+        return render(request, self.template_name, context)
+    """
+    # queryset = email_data.objects.all()
+
+    def get_object(self, queryset=None):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(email_data, id=id_)
+
 
 
 # ALL Function-based-views below.
