@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+from django.urls import reverse
 
 # Create your models here.
 class email_data(models.Model):
@@ -22,3 +23,6 @@ class email_data(models.Model):
     cc_myself = models.BooleanField()
     email_tag = models.CharField(max_length=32)
     id = models.BigAutoField(primary_key=True)
+
+    def get_absolute_url(self):
+        return reverse("core:email_detail", kwargs={"id": self.id})
