@@ -6,18 +6,30 @@ from django.views.generic import (
     )
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 
 from .forms import send_msg_form
 from .models import email_data
 
-
-# ToDo
 """
+ToDo
     - Filter to display all emails by ID ASC
     - Every item in the ListView should be selectable for
         - Update
         - Delete 
+
+    - Login, Logout
+    - Register
+    - Confirm via e-mail
+    - Social Media Registration
+
+
+Complete
+    - Pagination
+
+Reference
+    - Unicode Symbols https://www.w3schools.com/charsets/ref_utf_punctuation.asp
 """
 
 # All Class-based-views
@@ -93,7 +105,9 @@ class show_all_email(ListView):
     """
     # queryset = email_data.objects.all()
     # queryset = email_data.objects.order_by("-id").filter(sender="larry.masc@gmail.com")
+    template_name = "core/email_data_list.html"
     queryset = email_data.objects.order_by("-id")
+    paginate_by = 6
 
 
 # Show details of a row
