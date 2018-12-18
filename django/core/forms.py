@@ -20,8 +20,8 @@ class send_msg_form(forms.ModelForm):
                 ]
         def clean_sender(self, *args, **kwargs):
                 sender = self.cleaned_data.get("sender")
-                if not "larry.masc@gmail.com" in sender:
-                        raise forms.ValidationError("Sender can only be larry.masc@gmail.com")
+                # if not "larry.masc@gmail.com" in sender:
+                #         raise forms.ValidationError("Sender can only be larry.masc@gmail.com")
                 return sender
 
 # class send_msg_form(forms.Form):

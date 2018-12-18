@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Message Details</h1>
+<h3>
+    <pre>
+Sender    : {{ object.sender }}
+Recipient : {{ object.recipient }}
+Subject   : {{ object.subject }}
+Sent on   : {{ object.send_time }}
+cc_myself : {{ object.cc_myself }}
+Body      : {{ object.body }}
+    </pre>
+</h3>
+
+<div class="w3-bar">
+<a href="/" class="w3-bar-item w3-button w3-teal">Home</a>
+<a href="/core/show_all_email" class="w3-bar-item w3-button w3-blue">All Msgs</a>
+<a href="/core/{{ object.id }}/update" class="w3-bar-item w3-button w3-yellow">Update</a>
+<a href="/core/{{ object.id }}/delete" class="w3-bar-item w3-button w3-red">Delete</a>
+</div>
+<!--
+<a href="/"><img src="/static/core/img/home.svg" height="50" width="50" title="Home"></a>
+<form action="/">
+    <input type="submit" value="Home">
+</form>
+
+<form action="/core/show_all_email">
+    <input type="submit" value="All Msgs">
+</form>
+
+<form action="/core/{{ object.id }}/update">
+    <input type="submit" value="Update">
+</form>
+
+<form action="/core/{{ object.id }}/delete">
+    <input type="submit" value="Delete">
+</form>
+-->
+
+{% endblock %}
+

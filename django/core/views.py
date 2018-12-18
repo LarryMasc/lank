@@ -1,13 +1,36 @@
-from django.shortcuts import render, redirect
-from django.core.mail import send_mail
-from django.views.generic import TemplateView, FormView, ListView, View
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, FormView, ListView, TemplateView,
+    UpdateView, View
+    )
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
+
 
 from .forms import send_msg_form
 from .models import email_data
 
+"""
+ToDo
+    - Filter to display all emails by ID ASC
+    - Every item in the ListView should be selectable for
+        - Update
+        - Delete 
+
+    - Login, Logout
+    - Register
+    - Confirm via e-mail
+    - Social Media Registration
+
+
+Complete
+    - Pagination
+
+Reference
+    - Unicode Symbols https://www.w3schools.com/charsets/ref_utf_punctuation.asp
+"""
 
 # All Class-based-views
 class core_view(TemplateView):
@@ -63,15 +86,111 @@ class send_email_msg(FormView):
 
 # List all the sent e-mails
 class show_all_email(ListView):
-    paginate_by = 3
+    r"""ListView using ClassView
+
+    In a listview, the defaults are as followw
+    template_name = <app>/<model>_<view>.html
+
+    eg below shows how the class would be defined if the defaults are not
+    used.
+
+    class show_all_email(ListView)
+    template_name = "core/email_data_list.html"
+    def get(self, request):
+        queryset = email_data.objects.all()
+        context = {
+            'object_list': queryset
+        }
+        return render(request, self.template_name, context)
+    """
+    # queryset = email_data.objects.all()
+    # queryset = email_data.objects.order_by("-id").filter(sender="larry.masc@gmail.com")
+    template_name = "core/email_data_list.html"
+    queryset = email_data.objects.order_by("-id")
+    paginate_by = 6
+
+
+# Show details of a row
+class email_detail(DetailView):
+    r"""Display details of a row using Classviews.
+
+    In a detailview, the defaults are as followw
+    template_name = <app>/<model>_<view>.html
+
+    eg below shows how the class would be defined if the defaults are not
+    used.
+
+    class email_detail(DetailView)
+    template_name = "core/email_data_detail.html"
+    def get(self, request):
+        queryset = email_data.objects.all()
+        context = {
+            'object_list': queryset
+        }
+        return render(request, self.template_name, context)
+    """
+    # queryset = email_data.objects.all()
+    template_name = "core/email_data_detail.html"
+    def get_object(self, queryset=None):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(email_data, id=id_)
+
+
+# Create view
+class email_create(CreateView):
+    r"""Example of CreateView using ClassViews.
+
+    """
+    template_name = "core/email_data_create.html"
+    form_class = send_msg_form
     queryset = email_data.objects.all()
-    # template_name = "core/email_data_list.html"
-    # def get(self, request):
-    #     queryset = email_data.objects.all()
-    #     context = {
-    #         'object_list': queryset
-    #     }
-    #     return render(request, self.template_name, context)
+    # success_url = "/"
+
+    r"""Display details of the form in the server log."""
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    # def get_success_url(self):
+    #     return "/"
+
+
+# Create view
+class email_update(UpdateView):
+    r"""Example of UpdateView using ClassViews.
+
+    """
+    template_name = "core/email_data_create.html"
+    form_class = send_msg_form
+    # Not needed queryset = email_data.objects.all()
+
+    def get_object(self, queryset=None):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(email_data, id=id_)
+
+    r"""Display details of the form in the server log."""
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
+# Delete a row
+class email_delete(DeleteView):
+    r"""Delete a row using Classviews."""
+    # queryset = email_data.objects.all()
+    template_name = "core/email_data_delete.html"
+
+    def get_object(self, queryset=None):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(email_data, id=id_)
+
+    def get_success_url(self):
+        return reverse("core:show_all_email")
+
+
+
+
+
 
 
 # ALL Function-based-views below.
