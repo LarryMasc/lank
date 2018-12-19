@@ -47,6 +47,10 @@ class home_view(View):
         }
         return render(request, self.template_name, context)
 
+class pic_gallery(TemplateView):
+    template_name = "core/picture_gallery.html"
+
+
 # Signup forms
 class sign_up(FormView):
     """This class signs user into the DB."""
