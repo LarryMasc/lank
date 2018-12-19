@@ -23,6 +23,7 @@ ToDo
     - Register
     - Confirm via e-mail
     - Social Media Registration
+    - Picture Gallery
 
 
 Complete
@@ -107,7 +108,7 @@ class show_all_email(ListView):
     # queryset = email_data.objects.order_by("-id").filter(sender="larry.masc@gmail.com")
     template_name = "core/email_data_list.html"
     queryset = email_data.objects.order_by("-id")
-    paginate_by = 6
+    paginate_by = 10
 
 
 # Show details of a row
