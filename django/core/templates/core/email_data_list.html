@@ -51,12 +51,12 @@ LM - Pagination
 {% if is_paginated %}
   <ul class="step-links">
       <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
       </span>
 
       {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; First</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        <a href="?page=1">&laquo;First</a>
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
       {% else %}
         <span class="disabled"><span>&laquo;</span></span>
       {% endif %}
@@ -70,8 +70,8 @@ LM - Pagination
       {% endfor %}
 
       {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last&raquo;</a>
       {% else %}
         <span class="disabled"><span>&raquo;</span></span>
       {% endif %}
@@ -108,6 +108,7 @@ Pagination - Viktor Freitas
 -->
 
 <!--
+Django Manual
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}

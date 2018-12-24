@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.slides {display:none}
+.w3-left, .w3-right, .w3-badge {cursor:pointer}
+.w3-badge {height:13px;width:13px;padding:0}
+</style>
+<body>
+
+<div class="w3-container">
+  <br>
+</div>
+
+<div class="w3-content w3-display-container" style="max-width:990px; height: 100%">
+  <img class="slides" src="/static/core/img/img_20181122_161811.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20181031_202400.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20181020_130733.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20181019_195021.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180929_194405.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180910_111651.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180907_204944.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180907_172946_v2.jpeg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180906_WA0006.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180826_151735.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180728_112251.jpg" style="width:100%">
+  <img class="slides" src="/static/core/img/img_20180702_132713.jpg" style="width:100%">
+  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+    <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+    <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(5)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(6)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(7)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(8)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(9)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(10)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(11)"></span>
+    <span class="w3-badge lank w3-border w3-transparent w3-hover-white" onclick="currentDiv(12)"></span>
+  </div>
+</div>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("slides");
+  var dots = document.getElementsByClassName("lank");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" w3-white", "");
+  }
+  x[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " w3-white";
+}
+</script>
+
+</body>
+
+{% endblock %}
+
+
+

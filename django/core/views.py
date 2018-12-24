@@ -24,9 +24,9 @@ ToDo
     - Confirm via e-mail
     - Social Media Registration
 
-
 Complete
     - Pagination
+    - Picture Gallery
 
 Reference
     - Unicode Symbols https://www.w3schools.com/charsets/ref_utf_punctuation.asp
@@ -45,6 +45,10 @@ class home_view(View):
             'count': count
         }
         return render(request, self.template_name, context)
+
+class pic_gallery(TemplateView):
+    template_name = "core/picture_gallery.html"
+
 
 # Signup forms
 class sign_up(FormView):
@@ -107,7 +111,7 @@ class show_all_email(ListView):
     # queryset = email_data.objects.order_by("-id").filter(sender="larry.masc@gmail.com")
     template_name = "core/email_data_list.html"
     queryset = email_data.objects.order_by("-id")
-    paginate_by = 6
+    paginate_by = 10
 
 
 # Show details of a row
