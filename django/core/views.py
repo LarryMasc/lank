@@ -23,11 +23,10 @@ ToDo
     - Register
     - Confirm via e-mail
     - Social Media Registration
-    - Picture Gallery
-
 
 Complete
     - Pagination
+    - Picture Gallery
 
 Reference
     - Unicode Symbols https://www.w3schools.com/charsets/ref_utf_punctuation.asp
